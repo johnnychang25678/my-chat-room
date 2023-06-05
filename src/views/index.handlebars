@@ -1,1 +1,21 @@
-<h1>hello</h1>
+<div class="container">
+    <h1>FSE Chat Room</h1>
+    <div class="spacer-v-24"></div>
+    <form class="form-container" action="/login" method="post">
+        <div class="form-group-vertical">
+            <label class="input-label">Username</label>
+            <input type="text" name="username" required autofocus>
+        </div>
+        <div class="spacer-v-8"></div>
+        <div class="form-group-vertical">
+            <label class="input-label">Password</label>
+            <input type="password" name="password" required>
+        </div>
+        <div class="spacer-v-8"></div>
+        <div class="form-group-horizontal">
+            <button type="submit">Login</button>
+            <div class="spacer-h-8"></div>
+            <button type="submit" formaction="/register">Register</button>
+        </div>
+    </form>
+</div>

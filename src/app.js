@@ -22,9 +22,15 @@ export default class App {
         app.engine("handlebars", exhbs.engine);
         app.set("view engine", "handlebars");
 
+        app.use(express.urlencoded({ extended: true }));
 
         app.get("/", (req, res) => {
             res.render("index");
+        });
+
+        app.post("/register", (req, res) => {
+            console.log(req.body);
+            console.log("hi");
         });
         this.app = app;
     }
