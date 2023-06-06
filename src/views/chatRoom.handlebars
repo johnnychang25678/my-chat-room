@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Room</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    {{!-- nav bar --}}
+    <header class="chat-header">
+        <div>FSE Chat Room</div>
+        <form action="/logout" , method="post">
+            <input type="submit" value="Logout" />
+        </form>
+    </header>
+    {{!-- scrollable chat section --}}
+    <section class="chat-box scrollable">
+        {{!-- message box --}}
+        <div class="message-box">
+            <div class="message-header">
+                <div class="message-name">Johnny</div>
+                <div class="message-timestamp">06.06.2023 9:53PM</div>
+            </div>
+            <div class="spacer-v-4"></div>
+            <p class="message-content">Hello world</p>
+        </div>
+    </section>
+    {{!-- input and submit form --}}
+    <form id="chat-form" action="/message" method="post">
+        <div class="form-group-vertical">
+            <textarea class="message-input" form="chat-form" name="message"></textarea>
+            <div class="spacer-v-8"></div>
+            <div class="chat-footer">
+                <button type="submit">Post</button>
+            </div>
+        </div>
+    </form>
+
+</body>
+
+<script>
+    const chatBox = document.querySelector(".chat-box");
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    // to avoid sending empty message
+    document.getElementById("chat-form").addEventListener("submit", (e) => {
+        const message = document.querySelector(".message-input");
+        if (message.value.trim() === "") {
+            e.preventDefault();
+        }
+    })
+
+</script>
+
+</html>

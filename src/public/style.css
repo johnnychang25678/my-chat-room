@@ -55,6 +55,10 @@ td {
 }
 
 
+.spacer-v-4 {
+    height: 4px;
+}
+
 .spacer-v-8 {
     height: 8px;
 }
@@ -81,10 +85,58 @@ td {
     justify-content: space-around;
 }
 
-button {
-    flex-grow: 0.8;
+.form-btn {
+    flex-grow: 1;
 }
 
 .input-label {
     font-weight: bold;
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: sticky;
+    width: 100vw;
+    height: 5vh;
+    padding: 4px;
+    background-color: lightgrey;
+}
+
+
+.chat-box {
+    height: 50vh;
+    padding: 8px;
+}
+
+.scrollable {
+    overflow: scroll;
+    scroll-behavior: smooth;
+}
+
+.chat-footer {
+    display: flex;
+    justify-content: center;
+    background-color: lightgrey;
+    padding: 4px;
+}
+
+.message-box {
+    margin: 8px 4px;
+    padding: 12px;
+    background-color: aqua;
+    border-radius: 10px;
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}
+
+.message-input {
+    height: 20vh;
+    margin: 0px 12px;
+    border-radius: 10px;
 }
