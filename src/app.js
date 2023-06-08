@@ -2,6 +2,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import express from "express";
 import { ExpressHandlebars } from "express-handlebars";
+import MyRouter from "./routes.js";
 
 
 export default class App {
@@ -24,18 +25,20 @@ export default class App {
 
         app.use(express.urlencoded({ extended: true }));
 
-        app.get("/", (req, res) => {
-            res.render("chatRoom", { layout: false });
-            // res.render("index");
-        });
+        app.use("/", new MyRouter().route());
 
-        app.post("/register", (req, res) => {
-            console.log(req.body);
-            console.log("hi");
-        });
-        app.post("/message", (req, res) => {
-            console.log(req.body);
-        });
+        // app.get("/", (req, res) => {
+        //     res.render("chatRoom", { layout: false });
+        //     // res.render("index");
+        // });
+
+        // app.post("/register", (req, res) => {
+        //     console.log(req.body);
+        //     console.log("hi");
+        // });
+        // app.post("/message", (req, res) => {
+        //     console.log(req.body);
+        // });
         this.app = app;
     }
 
