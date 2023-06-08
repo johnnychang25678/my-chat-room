@@ -47,6 +47,10 @@ td {
     height: 100vh;
 }
 
+.container>* {
+    max-width: 300px;
+}
+
 .form-container {
     display: flex;
     flex-direction: column;
@@ -93,12 +97,35 @@ td {
     font-weight: bold;
 }
 
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    /* max-width: 760px; */
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+}
+
+.chat-container>* {
+    /* fit parent container, but max at 760px */
+    width: 100%;
+    max-width: 760px;
+}
+
+@media (max-width: 760px) {
+
+    /* for screen smaller than 760px, max-width fits parent */
+    .chat-container>* {
+        max-width: 100%;
+    }
+}
+
 .chat-header {
     display: flex;
     justify-content: space-around;
     align-items: center;
     position: sticky;
-    width: 100vw;
+    /* width: 100vw; */
     height: 5vh;
     padding: 4px;
     background-color: lightgrey;

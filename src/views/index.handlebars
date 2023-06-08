@@ -1,7 +1,7 @@
 <div class="container">
     <h1>FSE Chat Room</h1>
     <div class="spacer-v-24"></div>
-    <form class="form-container" action="/login" method="post">
+    <form class="form-container" action="/user/login" method="post">
         <div class="form-group-vertical">
             <label class="input-label">Username</label>
             <input type="text" name="username" required autofocus>
@@ -15,7 +15,7 @@
         <div class="form-group-horizontal">
             <button class="form-btn" type="submit">Login</button>
             <div class="spacer-h-8"></div>
-            <button class="form-btn" type="submit" formaction="/register">Register</button>
+            <button class="form-btn" type="submit" formaction="/user/register">Register</button>
         </div>
     </form>
 </div>
