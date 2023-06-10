@@ -1,4 +1,7 @@
 <div class="container">
+    {{#if error}}
+    <p class="error-message">{{error}}</p>
+    {{/if}}
     <h1>FSE Chat Room</h1>
     <div class="spacer-v-24"></div>
     <form class="form-container" action="/user/login" method="post">

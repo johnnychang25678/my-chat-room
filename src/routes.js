@@ -1,7 +1,7 @@
 import express from "express";
 import UserController from "./controllers/userController.js";
 import ViewController from "./controllers/viewController.js";
-import { auth } from "./middlewares.js";
+import { auth, isLogin } from "./middlewares.js";
 
 export default class MyRouter {
     constructor() {
@@ -9,7 +9,7 @@ export default class MyRouter {
 
         // pages
         const viewController = new ViewController();
-        this.router.get("/", viewController.loginPage);
+        this.router.get("/", isLogin, viewController.loginPage);
         this.router.get("/chat-room", auth, viewController.chatPage);
 
         // user api
@@ -18,10 +18,13 @@ export default class MyRouter {
         this.router.post("/user/register", userController.login);
 
         // TODO: chat api
+
+        this.route = this.route.bind(this);
     }
 
     route() {
         return this.router;
     }
+
 
 }

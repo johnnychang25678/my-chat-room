@@ -3,6 +3,7 @@ import { fileURLToPath } from "url";
 import express from "express";
 import { ExpressHandlebars } from "express-handlebars";
 import MyRouter from "./routes.js";
+import { errorHandler } from "./middlewares.js";
 
 
 export default class App {
@@ -12,7 +13,6 @@ export default class App {
 
         const app = express();
 
-        // console.log(path.join(__dirname, "public"));
         // static files
         app.use(express.static(path.join(__dirname, "public")));
 
@@ -26,19 +26,8 @@ export default class App {
         app.use(express.urlencoded({ extended: true }));
 
         app.use("/", new MyRouter().route());
-
-        // app.get("/", (req, res) => {
-        //     res.render("chatRoom", { layout: false });
-        //     // res.render("index");
-        // });
-
-        // app.post("/register", (req, res) => {
-        //     console.log(req.body);
-        //     console.log("hi");
-        // });
-        // app.post("/message", (req, res) => {
-        //     console.log(req.body);
-        // });
+        // error handling middleware, use next(MyError) to handle 
+        app.use(errorHandler);
         this.app = app;
     }
 

@@ -1,7 +1,8 @@
 export default class ViewController {
 
     loginPage(req, res) {
-        res.render("index");
+        const errorMessage = req.query.error;
+        res.render("index", { error: errorMessage ? errorMessage : "" });
     }
 
     chatPage(req, res) {

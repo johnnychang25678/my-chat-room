@@ -1,27 +1,45 @@
-import jwt from "jsonwebtoken";
 import Utils from "./utils.js";
+import { MyError, MyErrorType } from "./errors.js";
 
 export const auth = (req, res, next) => {
-    console.log("auth");
     const cookieString = req.headers.cookie;
     if (!cookieString) {
-        // throw error
+        return next(new MyError(MyErrorType.TOKEN_AUTH_ERROR));
     }
     // parse cookie
     const cookies = Utils.cookieParser(cookieString);
-    console.log("cookies", cookies);
     const token = cookies["token"];
-    if (!token) {
-        // throw error
-    }
     try {
-        const plainToken = jwt.verify(token, "secret");
-        console.log(plainToken);
-
+        Utils.verifyToken(token);
+        return next();
     } catch (err) {
-        res.json({ "a": 1 });
-        return;
+        return next(err);
     }
-    next();
+};
+
+// if login, redirect to chat-room page
+export const isLogin = (req, res, next) => {
+    const cookieString = req.headers.cookie;
+    if (!cookieString) {
+        return next();
+    }
+    const cookies = Utils.cookieParser(cookieString);
+    const token = cookies["token"];
+    try {
+        Utils.verifyToken(token);
+        return res.redirect(302, "/chat-room");
+    } catch (err) {
+        return next();
+    }
+};
+
+
+export const errorHandler = (err, req, res, next) => {
+    // refer to errors.js MyError    
+    console.log("*********** error ***************");
+    console.log(err.type);
+    console.log(err.error);
+    const myErrorMessage = err.message();
+    res.redirect(302, `/?error=${encodeURIComponent(myErrorMessage)}`);
 };
 
