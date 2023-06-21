@@ -50,6 +50,10 @@ export default class App {
                 console.log(receive);
                 this.io.emit("message", receive);
             });
+            socket.on("disconnect", () => {
+                console.log("disconnect from client");
+                socket.close();
+            });
         });
         this.server.listen(port, () => console.log("running on port %d", port));
     }

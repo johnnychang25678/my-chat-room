@@ -74,6 +74,11 @@
         scrollToBottom();
     });
 
+    socket.on("disconnect", () => {
+        console.log("disconnect from server");
+        socket.close();
+    });
+
     // **** fucntion calls ****
     let username = "";
     (async () => {
