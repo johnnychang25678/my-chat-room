@@ -15,6 +15,7 @@ export default class MyRouter {
         // user api
         const userController = new UserController();
         this.router.post("/user/login", userController.login);
+        this.router.get("/user/name", auth, userController.getName);
         this.router.post("/user/register", userController.login);
 
         // TODO: chat api

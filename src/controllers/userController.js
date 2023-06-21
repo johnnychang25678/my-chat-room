@@ -17,9 +17,17 @@ export default class UserController {
 
             // create jwt and send to frontend
             // set cookie then redirect
-            const token = jwt.sign({ foo: "bar" }, "secret", { expiresIn: this.TOKEN_EXPIRE });
+            const token = jwt.sign({ username: username }, "secret", { expiresIn: this.TOKEN_EXPIRE });
             res.cookie("token", token, { httpOnly: true });
             res.redirect("../chat-room");
+        } catch (err) {
+            const myError = new MyError(err, MyErrorType.INTERNAL_SERVER_ERROR);
+            next(myError);
+        }
+    }
+    async getName(req, res, next) {
+        try {
+            res.json({ username: req.username });
         } catch (err) {
             const myError = new MyError(err, MyErrorType.INTERNAL_SERVER_ERROR);
             next(myError);

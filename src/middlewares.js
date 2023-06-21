@@ -10,7 +10,9 @@ export const auth = (req, res, next) => {
     const cookies = Utils.cookieParser(cookieString);
     const token = cookies["token"];
     try {
-        Utils.verifyToken(token);
+        const plainToken = Utils.verifyToken(token);
+        const { username } = plainToken;
+        req.username = username; // attach to request and pass to the next handler
         return next();
     } catch (err) {
         return next(err);
@@ -34,6 +36,7 @@ export const isLogin = (req, res, next) => {
 };
 
 
+// trigger if any handler calls next(err)
 export const errorHandler = (err, req, res, next) => {
     // refer to errors.js MyError    
     console.log("*********** error ***************");
