@@ -14,7 +14,7 @@
         {{!-- nav bar --}}
         <header class="chat-header">
             <div>FSE Chat Room</div>
-            <form action="/logout" , method="post">
+            <form id="logout-form" action="/user/logout">
                 <input type="submit" value="Logout" />
             </form>
         </header>
@@ -23,7 +23,7 @@
             {{!-- message box --}}
             <div class="message-box">
                 <div class="message-header">
-                    <div class="message-name">Johnny</div>
+                    <div class="message-name">DUMMY</div>
                     <div class="message-timestamp">06.06.2023 9:53PM</div>
                 </div>
                 <div class="spacer-v-4"></div>
@@ -46,77 +46,6 @@
 </body>
 
 <script src="/socket.io/socket.io.js"></script>
-<script>
-    // **** init socket io client ****
-    // connect to socket io server
-    const socket = io();
-
-    // listens to message from server
-    socket.on("message", (msg) => {
-        console.log(msg);
-        const { username, message, timestamp } = msg;
-        console.log(timestamp);
-        const localTime = new Date(timestamp).toLocaleDateString([], { hour: '2-digit', minute: '2-digit' });
-        // once receive, should add to dom
-        const parent = document.getElementById("chat-box");
-        const messageBox = document.createElement("div");
-        messageBox.classList.add("message-box");
-
-        messageBox.innerHTML = `
-            <div class="message-header">
-                <div class="message-name">${username}</div>
-                <div class="message-timestamp">${localTime}</div>
-            </div>
-            <div class="spacer-v-4"></div>
-            <p class="message-content">${message}</p>
-        `
-        parent.appendChild(messageBox);
-        scrollToBottom();
-    });
-
-    socket.on("disconnect", () => {
-        console.log("disconnect from server");
-        socket.close();
-    });
-
-    // **** fucntion calls ****
-    let username = "";
-    (async () => {
-        scrollToBottom();
-        const userInfo = await getUserInfo();
-        username = userInfo.username;
-    })();
-
-    // **** event listeners ****
-    document.getElementById("chat-form").addEventListener("submit", (e) => {
-        e.preventDefault();
-        const messageInput = document.getElementById("message-input");
-        const message = messageInput.value.trim();
-        // do not send empty message
-        if (message !== "") {
-            const today = new Date();
-            console.log(today);
-            const messageBody = { username, message, timestamp: today };
-            sendMessage(messageBody);
-        }
-    });
-
-    // **** functions ****
-    async function getUserInfo() {
-        const res = await fetch("/user/name");
-        const data = await res.json();
-        return data;
-    }
-    function sendMessage(messageValue) {
-        socket.emit("message", messageValue);
-    }
-    // make sure chat box scrollable area is always at bottom (latest message)
-    function scrollToBottom() {
-        const chatBox = document.querySelector(".chat-box");
-        chatBox.scrollTop = chatBox.scrollHeight;
-    }
-
-    // TODO: fetch all history messages
-</script>
+<script src="chatRoomScript.js"></script>
 
 </html>
