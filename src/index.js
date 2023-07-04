@@ -1,8 +1,10 @@
 import App from "./app.js";
 
-const main = () => {
+const main = async () => {
     const app = new App();
-    app.run(3000);
+    await app.run(3000);
 };
 
-main();
+(async () => {
+    await main();
+})();

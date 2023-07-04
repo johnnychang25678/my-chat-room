@@ -55,6 +55,10 @@ td {
     color: red;
 }
 
+.success-message {
+    color: green;
+}
+
 .form-container {
     display: flex;
     flex-direction: column;

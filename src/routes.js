@@ -2,6 +2,7 @@ import express from "express";
 import UserController from "./controllers/userController.js";
 import ViewController from "./controllers/viewController.js";
 import { auth, isLogin } from "./middlewares.js";
+import UserModel from "./models/userModel.js";
 
 export default class MyRouter {
     constructor() {
@@ -13,12 +14,11 @@ export default class MyRouter {
         this.router.get("/chat-room", auth, viewController.chatPage);
 
         // user api
-        const userController = new UserController();
+        const userModel = new UserModel();
+        const userController = new UserController(userModel);
         this.router.post("/user/login", userController.login);
         this.router.get("/user/name", auth, userController.getName);
-        this.router.post("/user/register", userController.login);
-
-        // TODO: chat api
+        this.router.post("/user/register", userController.signUp);
 
         this.route = this.route.bind(this);
     }
