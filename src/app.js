@@ -3,10 +3,12 @@ import { fileURLToPath } from "url";
 import express from "express";
 import http from "http";
 import { ExpressHandlebars } from "express-handlebars";
-import { Server } from "socket.io";
 import MyRouter from "./routes.js";
 import { errorHandler } from "./middlewares.js";
 import Db from "./infrastructure/db.js";
+import MessageModel from "./models/messageModel.js";
+import UserModel from "./models/userModel.js";
+import SocketIO from "./socketio/SocketIO.js";
 
 
 export default class App {
@@ -44,23 +46,10 @@ export default class App {
         this.app.use(errorHandler);
 
         const server = http.createServer(this.app);
-        // set up socket io server, this will expose an endpoint /socket.io/socket.io.js for the client to connect to
-        const io = new Server(server);
 
-        io.on("connection", (socket) => {
-            // socket listens to message from client
-            // ioServer sends message to everyone
-            socket.on("message", (receive) => {
-                // TODO: store in database
-                // timestamp should be Z time to store in db
-                console.log(receive);
-                this.io.emit("message", receive);
-            });
-            socket.on("disconnect", () => {
-                console.log("disconnect from client");
-                socket.disconnect();
-            });
-        });
+        // socket io init
+        const socketIO = new SocketIO(server, new MessageModel(), new UserModel());
+        socketIO.init();
 
         server.listen(port, () => console.log("server running on port %d", port));
     }

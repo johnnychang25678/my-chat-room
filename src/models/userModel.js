@@ -6,6 +6,7 @@ export default class UserModel {
         this.db = dbInstance.collection("users");
 
         this.insert = this.insert.bind(this);
+        this.selectByUserName = this.selectByUserName.bind(this);
     }
 
     _toUserEntity(user) {

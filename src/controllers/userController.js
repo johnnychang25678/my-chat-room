@@ -20,7 +20,6 @@ export default class UserController {
             if (!user) {
                 return next(new MyError(MyErrorType.INCORRECT_AUTH_ERROR));
             }
-            console.log(user);
             // verify password
             if (!bcrypt.compareSync(password, user.password)) {
                 return next(new MyError(MyErrorType.INCORRECT_AUTH_ERROR));
@@ -38,6 +37,7 @@ export default class UserController {
     }
     async getName(req, res, next) {
         try {
+            // req.username from auth middleware
             res.json({ username: req.username });
         } catch (err) {
             const myError = new MyError(err, MyErrorType.INTERNAL_SERVER_ERROR);
@@ -64,5 +64,9 @@ export default class UserController {
             next(myError);
         }
 
+    }
+    logOut(req, res, next) {
+        res.clearCookie("token");
+        res.redirect("/");
     }
 }

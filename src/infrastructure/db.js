@@ -14,7 +14,7 @@ export default class Db {
         return Db.dbInstance;
     }
 
-    // returns db instance
+    // initialize db instance
     async connect() {
         await this.client.connect();
         Db.dbInstance = this.client.db(this.dbName);
