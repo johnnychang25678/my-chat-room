@@ -39,6 +39,15 @@ td {
 
 /*reset end*/
 
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #F4F4F4;
+}
+
+.index-title {
+    font-weight: 900;
+}
+
 .container {
     display: flex;
     flex-direction: column;
@@ -75,6 +84,10 @@ td {
     height: 8px;
 }
 
+.spacer-v-16 {
+    height: 16px;
+}
+
 .spacer-v-24 {
     height: 24px;
 }
@@ -99,6 +112,7 @@ td {
 
 .form-btn {
     flex-grow: 1;
+    background-color: #ADD8E6;
 }
 
 .input-label {
@@ -130,12 +144,12 @@ td {
 
 .chat-header {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     position: sticky;
     /* width: 100vw; */
     height: 5vh;
-    padding: 4px;
+    padding: 4px 30px;
     background-color: lightgrey;
 }
 
@@ -160,14 +174,26 @@ td {
 .message-box {
     margin: 8px 4px;
     padding: 12px;
-    background-color: aqua;
+    background-color: #ADD8E6;
     border-radius: 10px;
 }
+
 
 .message-header {
     display: flex;
     justify-content: space-between;
+}
+
+.message-timestamp {
+    color: #5C5C5C;
+}
+
+.message-name {
     font-weight: bold;
+}
+
+.message-content {
+    white-space: pre-wrap;
 }
 
 .message-input {

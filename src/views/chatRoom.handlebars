@@ -21,17 +21,9 @@
         {{!-- scrollable chat section --}}
         <section id="chat-box" class="chat-box scrollable">
             {{!-- message box --}}
-            <div class="message-box">
-                <div class="message-header">
-                    <div class="message-name">DUMMY</div>
-                    <div class="message-timestamp">06.06.2023 9:53PM</div>
-                </div>
-                <div class="spacer-v-4"></div>
-                <p class="message-content">Hello world</p>
-            </div>
         </section>
         {{!-- input and submit form --}}
-        <form id="chat-form">
+        <form id="chat-form" method="post">
             <div class="form-group-vertical">
                 <textarea id="message-input" class="message-input" form="chat-form" name="message"></textarea>
                 <div class="spacer-v-8"></div>
