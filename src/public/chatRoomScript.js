@@ -21,8 +21,9 @@ let username = "";
 })();
 
 // **** event listeners ****
+const chatForm = document.getElementById("chat-form");
 // listen to chat form submit and send message to socket server
-document.getElementById("chat-form").addEventListener("submit", (e) => {
+chatForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const messageInput = document.getElementById("message-input");
     const message = messageInput.value.trim();
@@ -31,8 +32,18 @@ document.getElementById("chat-form").addEventListener("submit", (e) => {
         const today = new Date();
         const messageBody = { username, message, timestamp: today };
         sendMessage(messageBody);
+        messageInput.value = "";
     }
 });
+document.getElementById("message-input").addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        // Submit the form
+        chatForm.dispatchEvent(new Event("submit"));
+    }
+});
+
+
 
 // **** functions ****
 async function getUserInfo() {
